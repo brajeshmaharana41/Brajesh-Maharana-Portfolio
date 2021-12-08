@@ -576,6 +576,7 @@ footer small{
   flex: 0 0 33.33%;
   max-width: 33.33%;
   display: flex;
+  padding: 10px;
 }
 .project .project-item-inner{
   border-radius: 10px;
@@ -794,5 +795,28 @@ body.dark .aside .nav li a{
   .contact-btn{
     margin-left: 80px;
     margin-top: 0px;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111111;
   }
 }
