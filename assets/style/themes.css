@@ -1,0 +1,42 @@
+/* Theme Color Variables — one file replaces red/blue/green/purple/yellow.css */
+:root                { --color-primary: #e40017; }
+body.theme-red       { --color-primary: #e40017; }
+body.theme-blue      { --color-primary: #0779e4; }
+body.theme-green     { --color-primary: #57d131; }
+body.theme-purple    { --color-primary: #a100ff; }
+body.theme-yellow    { --color-primary: #ffcc00; }
+
+.about .about-content .skills .skill-item .progress .progress-in,
+.about .about-content .timeline .timeline-item::before,
+.about .about-content .timeline .circle-dot,
+.btn,
+.section-title h2::before,
+.section-title h2::after,
+.home .intro .social-link a {
+  background-color: var(--color-primary);
+}
+.contact-text,
+.contact .contact-info-item .icon .fa,
+.about .about-content .skills h1,
+.timeline-text span,
+.about-text h3,
+.about .about-content .about-text h3 span {
+  color: var(--color-primary);
+}
+.service-icon .fa,
+.section-subtitle h3,
+.responsibilities-list li .fa,
+.stat-number,
+.tag,
+#scroll-top {
+  color: var(--color-primary);
+}
+.tag,
+#scroll-top {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+.service-item-inner:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  border-color: var(--color-primary);
+}

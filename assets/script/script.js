@@ -1,51 +1,100 @@
-// Preloader
-window.addEventListener("load",function(){
-  document.querySelector(".preloader").classList.add("opacity-0");
-  setTimeout(function(){
-    document.querySelector(".preloader").style.display="none";
-  },1000)
-})
-// Aside Navbar
-const nav=document.querySelector(".nav"),
-navList=nav.querySelectorAll("li"),
-totalNavList=navList.length,
-allSection=document.querySelectorAll(".section"),
-totalSection=allSection.length;
-for(let i=0;i<totalNavList;i++){
-  const a=navList[i].querySelector("a");
-  a.addEventListener("click",function(){
-    for(let i=0;i<totalSection;i++){
-      allSection[i].classList.remove("back-section");
+// ── Preloader ─────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  document.querySelector('.preloader').classList.add('opacity-0');
+  setTimeout(() => {
+    document.querySelector('.preloader').style.display = 'none';
+  }, 1000);
+});
+
+// ── Navbar scroll shadow ──────────────────────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+// ── Mobile nav toggle ─────────────────────────────────────────────────────────
+const navToggler = document.getElementById('nav-toggler');
+const navMenu    = document.getElementById('nav-menu');
+
+navToggler.addEventListener('click', () => {
+  const isOpen = navMenu.classList.toggle('open');
+  navToggler.classList.toggle('open', isOpen);
+  navToggler.setAttribute('aria-expanded', isOpen);
+});
+
+document.addEventListener('click', e => {
+  if (!navbar.contains(e.target)) {
+    navMenu.classList.remove('open');
+    navToggler.classList.remove('open');
+    navToggler.setAttribute('aria-expanded', 'false');
+  }
+});
+
+// ── Smooth scroll on nav link click ──────────────────────────────────────────
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (!target) return;
+    navMenu.classList.remove('open');
+    navToggler.classList.remove('open');
+    navToggler.setAttribute('aria-expanded', 'false');
+    window.scrollTo({ top: target.offsetTop - navbar.offsetHeight - 10, behavior: 'smooth' });
+  });
+});
+
+// ── Active nav link on scroll ─────────────────────────────────────────────────
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
     }
-    for(let j=0; j<totalNavList;j++){
-      if(navList[j].querySelector("a").classList.contains("active")){
-        allSection[j].classList.add("back-section")
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+sections.forEach(s => navObserver.observe(s));
+
+// ── Section reveal (whole section fade-in) ────────────────────────────────────
+const sectionRevealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      sectionRevealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05 });
+
+sections.forEach(s => sectionRevealObserver.observe(s));
+
+// ── Scroll-to-top button ──────────────────────────────────────────────────────
+const scrollTopBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => {
+  scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── Element-level reveal (runs after renderer.js DOMContentLoaded) ────────────
+// renderer.js registers its DOMContentLoaded listener first (it is loaded first),
+// so this listener fires second — all dynamic elements are already in the DOM.
+document.addEventListener('DOMContentLoaded', () => {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // If a stat-item becomes visible, start its counter
+        if (entry.target.classList.contains('stat-item')) {
+          startStatCounters();
+        }
+        revealObserver.unobserve(entry.target);
       }
-      navList[j].querySelector("a").classList.remove("active");
-    }
-    this.classList.add("active");
-    showSection(this);
-    if(window.innerWidth<1200){
-      asideSectionTogglerBtn();
-    }
-  })
-}
-function showSection(element){
-  for(let i=0;i<totalSection;i++){
-    allSection[i].classList.remove("active");
-  }
-  const target=element.getAttribute("href").split("#")[1];
-  document.querySelector("#"+target).classList.add("active")
-}
-const navTogglerBtn=document.querySelector(".nav-toggler"),
-aside=document.querySelector(".aside");
-navTogglerBtn.addEventListener("click",()=>{
-  asideSectionTogglerBtn();
-})
-function asideSectionTogglerBtn(){
-  aside.classList.toggle("open")
-  navTogglerBtn.classList.toggle("open");
-  for(let i=0;i<totalSection;i++){
-    allSection[i].classList.toggle("open");
-  }
-}
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+});
