@@ -100,3 +100,45 @@ body.dark .theme-switch h5 {
 body.dark .theme-switch .toggle-theme-switcher .fa {
   color: #e9e9e9;
 }
+
+/* ── Mobile: slide up from bottom, toggle as floating button ── */
+@media (max-width: 600px) {
+  .theme-switch {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    border: 1px solid #d4d4e3;
+    border-bottom: none;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    padding: 20px 20px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+  .theme-switch.open {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+  .theme-switch .toggle-theme-switcher {
+    position: fixed;
+    bottom: 84px;
+    right: 12px;
+    left: auto;
+    top: auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #d4d4e3;
+    box-shadow: 0 4px 12px rgba(48,46,77,0.18);
+  }
+  .theme-switch ul {
+    justify-content: flex-start;
+  }
+}
+
