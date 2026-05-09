@@ -139,13 +139,6 @@ const portfolioData = {
       tags: ['Angular', 'PrimeNG', 'NGRX', 'RBAC', 'TypeScript', 'RBI Compliance'],
     },
     {
-      alt: 'MICR Application',
-      title: 'MICR — Enterprise Banking Module (ReBIT)',
-      description: 'Developed key UI modules for a large-scale enterprise banking application at ReBIT. Built a library of reusable Angular and PrimeNG components adopted across multiple application modules. Implemented role-based UI rendering ensuring secure, permission-driven access for different user roles. Designed config-driven UI architecture to eliminate redundant code and accelerate feature delivery. Integrated REST APIs with optimized lazy loading strategy for significantly improved runtime performance.',
-      link: 'https://www.rebit.org.in/',
-      tags: ['Angular', 'PrimeNG', 'Config-Driven UI', 'TypeScript', 'REST API'],
-    },
-    {
       alt: 'Kavach Application',
       title: 'Kavach — Enterprise Security UI (ReBIT)',
       description: 'Developed secure UI modules for Kavach, an internal enterprise security application aligned with RBI compliance standards. Implemented the full Maker/Checker/Approver approval workflow used across all ReBIT applications for sensitive data operations. Built highly configurable UI components that adapt to varying business requirements without code changes. Managed authentication flows, secure session validation, and token lifecycle handling to protect sensitive financial operations.',
