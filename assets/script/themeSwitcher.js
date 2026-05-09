@@ -10,6 +10,15 @@ document.querySelectorAll('.mode-switch').forEach(radio => {
   });
 });
 
-document.querySelector('.toggle-theme-switcher').addEventListener('click', () => {
-  document.querySelector('.theme-switch').classList.toggle('open');
+document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+  document.getElementById('theme-switch-panel').classList.toggle('open');
+});
+
+// Close panel when clicking outside
+document.addEventListener('click', e => {
+  const panel = document.getElementById('theme-switch-panel');
+  const toggle = document.getElementById('theme-toggle-btn');
+  if (!panel.contains(e.target) && !toggle.contains(e.target)) {
+    panel.classList.remove('open');
+  }
 });
